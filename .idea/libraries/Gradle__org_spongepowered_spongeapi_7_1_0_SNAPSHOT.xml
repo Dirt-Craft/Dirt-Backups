@@ -2,7 +2,6 @@
   <library name="Gradle: org.spongepowered:spongeapi:7.1.0-SNAPSHOT">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/spongepowered/spongeapi/7.1.0-SNAPSHOT/spongeapi-7.1.0-SNAPSHOT.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.spongepowered/spongeapi/7.1.0-SNAPSHOT/cab540f5692e8664d447e34cdd22319959a51fa5/spongeapi-7.1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

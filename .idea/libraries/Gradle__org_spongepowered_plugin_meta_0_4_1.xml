@@ -2,7 +2,6 @@
   <library name="Gradle: org.spongepowered:plugin-meta:0.4.1">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/spongepowered/plugin-meta/0.4.1/plugin-meta-0.4.1.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.spongepowered/plugin-meta/0.4.1/41378ca359e2b4ad935294d1ca3e533e7cdf8f64/plugin-meta-0.4.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
