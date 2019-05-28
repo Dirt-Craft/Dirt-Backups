@@ -25,3 +25,5 @@ hs_err_pid*
 *.lock
 *.xml
 .idea/libraries/Gradle__aopalliance_aopalliance_1_0.xml
+run/
+.idea/

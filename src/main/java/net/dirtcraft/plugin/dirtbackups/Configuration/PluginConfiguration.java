@@ -7,25 +7,11 @@ import java.util.ArrayList;
 
 @ConfigSerializable
 public class PluginConfiguration {
-    @Setting(value = "Main")
-    private PluginConfiguration.Main main = new PluginConfiguration.Main();
 
-    @ConfigSerializable
-    public static class Main {
-        @Setting(value = "ArrayList")
-        public static ArrayList<String> test = new ArrayList<String>() {{
-            add("Hello");
-        }};
+    @Setting(value = "Interval", comment = "The frequency that backups are taken at (in minutes).")
+    public static int interval = 30;
 
-        @Setting(value = "String")
-        public static String string = "Test";
-
-        @Setting(value = "Integer")
-        public static int integer = 0;
-
-        @Setting(value = "Boolean")
-        public static boolean testBoolean = true;
-
-    }
+    @Setting(value = "Quantity", comment = "The number of backups to keep.")
+    public static int quantity = 7;
 
 }

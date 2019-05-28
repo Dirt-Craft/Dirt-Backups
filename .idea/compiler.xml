@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="Dirt-Backups.main" target="1.8" />
+      <module name="Dirt-Backups.test" target="1.8" />
       <module name="net.dirtcraft.plugin.Dirt-Backups.main" target="1.8" />
       <module name="net.dirtcraft.plugin.Dirt-Backups.test" target="1.8" />
     </bytecodeTargetLevel>

@@ -1,0 +1,19 @@
+[
+    {
+        "modid": "dirt-backups",
+        "name": "Dirt Backups",
+        "version": "1.0.0",
+        "description": "Backups plugin, made for Sponge.",
+        "url": "https://dirtcraft.net/",
+        "authorList": [
+            "juliann",
+            "TechDweebGaming"
+        ],
+        "dependencies": [
+            "spongeapi@7.1.0-SNAPSHOT"
+        ],
+        "requiredMods": [
+            "spongeapi@7.1.0-SNAPSHOT"
+        ]
+    }
+]
