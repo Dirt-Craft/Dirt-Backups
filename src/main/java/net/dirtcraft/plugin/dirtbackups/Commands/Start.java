@@ -33,9 +33,10 @@ public class Start implements CommandExecutor {
 
         source.sendMessage(Utility.format("&7Saving backup..."));
 
-        DirtBackups.isBackingUp = true;
-        Utility.doBackup(numKeep);
-        DirtBackups.isBackingUp = false;
+        Task.builder()
+                .async()
+                .execute(() -> Utility.doBackup(numKeep))
+                .submit(DirtBackups.getInstance());
 
         source.sendMessage(Utility.format("&7Backup &asuccessfully&7 saved!"));
         return CommandResult.success();

@@ -9,6 +9,7 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -17,19 +18,17 @@ import java.util.Comparator;
 public class Utility {
 
     public static void doBackup(int numKeep) {
-        Task.builder()
-                .async()
-                .execute(() -> {
-                    try {
-                        File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
-                        ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy-HH:mm:ss")) + ".zip");
-                        backup.addFolder(world, new ZipParameters());
-                        deleteBackups(numKeep);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-                .submit(DirtBackups.getInstance());
+        try {
+            if (DirtBackups.isBackingUp) return;
+            DirtBackups.isBackingUp = true;
+            File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
+            ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy-HH:mm:ss")) + ".zip");
+            backup.addFolder(world, new ZipParameters());
+            deleteBackups(numKeep);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DirtBackups.isBackingUp = false;
     }
 
     public static File[] listBackups() throws IOException {
@@ -53,6 +52,13 @@ public class Utility {
                 }
             }
         }
+    }
+
+    public static String readableFileSize(long size) {
+        if(size <= 0) return "0";
+        final String[] units = new String[] { "B", "kB", "MB", "GB", "TB" };
+        int digitGroups = (int) (Math.log10(size)/Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
     public static Text format(String unformattedString) {

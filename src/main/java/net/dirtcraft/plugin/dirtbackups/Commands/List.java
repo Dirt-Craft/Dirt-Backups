@@ -8,9 +8,11 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.TextActions;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.Month;
 import java.util.ArrayList;
 
@@ -24,12 +26,15 @@ public class List implements CommandExecutor {
                 String[] backupDate = file.getName().split("-");
 
                 String[] backupTime = backupDate[3].split(":");
-
-                contents.add(Utility.format(
+                contents.add(Text.builder()
+                        .append(
+                Utility.format(
                         ("&7" + Month.of(Integer.valueOf(backupDate[0].replace("0", ""))) + " " +
                                 backupDate[1].replace("0", "") + "&8, &7" + backupDate[2] + " " + "&c@" + "&6 " +
                                 backupTime[0].replace("0", "") + "&8:" + "&6" + backupTime[1]
-                ).replace(".zip", "")));
+                ).replace(".zip", "")))
+                        .onHover(TextActions.showText(Utility.format("&7Backup Size&8: &6" + Utility.readableFileSize(file.length()))))
+                        .build());
 
             }
             PaginationList.builder()

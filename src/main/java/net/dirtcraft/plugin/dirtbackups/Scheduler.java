@@ -7,13 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Scheduler {
 
-    public Scheduler() {
+    public static void initScheduler() {
         Task.builder()
-                .execute(() -> {
-                    DirtBackups.isBackingUp = true;
-                    Utility.doBackup(PluginConfiguration.quantity);
-                    DirtBackups.isBackingUp = false;
-                })
+                .async()
+                .execute(() -> Utility.doBackup(PluginConfiguration.quantity))
                 .interval(PluginConfiguration.interval, TimeUnit.MINUTES)
                 .submit(DirtBackups.getInstance());
     }

@@ -82,6 +82,8 @@ public class DirtBackups {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Scheduler.initScheduler();
     }
 
     private void loadConfig() {
