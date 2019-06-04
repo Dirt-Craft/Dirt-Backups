@@ -2,6 +2,7 @@ package net.dirtcraft.plugin.dirtbackups;
 
 import net.dirtcraft.plugin.dirtbackups.Configuration.PluginConfiguration;
 import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scheduler.Task;
@@ -30,7 +31,7 @@ public class Utility {
             ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy-HH:mm:ss")) + ".zip");
             backup.addFolder(world, new ZipParameters());
             deleteBackups(PluginConfiguration.quantity);
-        } catch (Exception exception) {
+        } catch (IOException | ZipException exception) {
             exception.printStackTrace();
         }
         DirtBackups.getLogger().warn("Backup Complete!");

@@ -29,8 +29,8 @@ public class List implements CommandExecutor {
                         .append(
                 Utility.format(
                         ("&7" + Month.of(Integer.valueOf(backupDate[0].replace("0", ""))) + " " +
-                                backupDate[1].replace("0", "") + "&8, &7" + backupDate[2] + " " + "&c@" + "&6 " +
-                                backupTime[0].replace("0", "") + "&8:" + "&6" + backupTime[1]
+                                backupDate[1] + "&8, &7" + backupDate[2] + " " + "&c@" + "&6 " +
+                                backupTime[0] + "&8:" + "&6" + backupTime[1]
                 ).replace(".zip", "")))
                         .onHover(TextActions.showText(Utility.format("&7Backup Size&8: &6" + Utility.readableFileSize(file.length()))))
                         .build());

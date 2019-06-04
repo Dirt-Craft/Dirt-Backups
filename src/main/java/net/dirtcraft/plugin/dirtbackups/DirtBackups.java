@@ -78,7 +78,6 @@ public class DirtBackups {
                     .child(start, "start")
                     .build();
 
-
             Sponge.getCommandManager().register(instance, base, "backup");
             Sponge.getCommandManager().register(instance, list, "backups");
 
@@ -86,11 +85,8 @@ public class DirtBackups {
             exception.printStackTrace();
         }
 
-    }
+        Sponge.getEventManager().registerListeners(instance, new EventHandler());
 
-    @Listener
-    public void onServerStarting(GameStartingServerEvent event) {
-        Scheduler.initScheduler();
     }
 
     private void loadConfig() {
@@ -99,6 +95,10 @@ public class DirtBackups {
 
     public static Logger getLogger() {
         return instance.logger;
+    }
+
+    public static PluginContainer getContainer() {
+        return instance.container;
     }
 
     public static DirtBackups getInstance() {
