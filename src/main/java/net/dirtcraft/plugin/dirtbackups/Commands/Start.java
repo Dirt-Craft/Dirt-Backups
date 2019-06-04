@@ -14,14 +14,13 @@ import java.io.IOException;
 
 public class Start implements CommandExecutor {
 
-    private final int numKeep;
-
-    public Start(int numKeep) {
-        this.numKeep = numKeep;
-    }
-
     @Override
     public CommandResult execute(CommandSource source, CommandContext args) throws CommandException {
+
+        if (DirtBackups.isBackingUp) {
+            throw new CommandException(Utility.format("&cThe server is already backing up!"));
+        }
+
         try {
             if (Utility.listBackups().length >= PluginConfiguration.quantity) {
                 source.sendMessage(Utility.format("&cWarning! &7Deleting oldest backup..."));
@@ -35,10 +34,12 @@ public class Start implements CommandExecutor {
 
         Task.builder()
                 .async()
-                .execute(() -> Utility.doBackup(numKeep))
+                .execute(() -> {
+                    Utility.doBackup();
+                    source.sendMessage(Utility.format("&7Backup &asuccessfully&7 saved!"));
+                })
                 .submit(DirtBackups.getInstance());
 
-        source.sendMessage(Utility.format("&7Backup &asuccessfully&7 saved!"));
         return CommandResult.success();
     }
 }

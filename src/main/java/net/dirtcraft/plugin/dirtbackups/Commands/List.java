@@ -12,7 +12,6 @@ import org.spongepowered.api.text.action.TextActions;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.Month;
 import java.util.ArrayList;
 
@@ -35,19 +34,27 @@ public class List implements CommandExecutor {
                 ).replace(".zip", "")))
                         .onHover(TextActions.showText(Utility.format("&7Backup Size&8: &6" + Utility.readableFileSize(file.length()))))
                         .build());
-
             }
+
+            Text footer = Text.builder()
+                    .append(Utility.format("&8[&aStart Backup&8]"))
+                    .onHover(TextActions.showText(Utility.format("&5&nClick Me&7 to start a backup")))
+                    .onClick(TextActions.runCommand("/backup start"))
+                    .build();
+
             PaginationList.builder()
                     .title(Utility.format("&cDirtCraft &7Backups"))
                     .padding(Utility.format("&4&m-"))
                     .contents(contents)
+                    .footer(footer)
                     .build()
                     .sendTo(source);
 
             return CommandResult.success();
+
         } catch (IOException exception) {
             exception.printStackTrace();
-            throw new CommandException(Utility.format("&cThere was an error retrieving backups"));
+            throw new CommandException(Utility.format("&cThere was an error retrieving backups!"));
         }
     }
 

@@ -13,8 +13,11 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 
 import java.io.File;
@@ -45,11 +48,13 @@ public class DirtBackups {
     private static DirtBackups instance;
 
     public static boolean isBackingUp = false;
+    
+    private String permissionPrefix = "dirtbackups";
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
         instance = this;
-        loadConfig();
+        //loadConfig();
 
         try {
             File backupDir = new File(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups");
@@ -57,19 +62,18 @@ public class DirtBackups {
 
             CommandSpec list = CommandSpec.builder()
                     .description(Text.of("Lists all backups in directory"))
-                    .permission("dirtbackup.list")
+                    .permission(permissionPrefix + ".list")
                     .executor(new List())
                     .build();
 
             CommandSpec start = CommandSpec.builder()
                     .description(Text.of("Forces the server to save a backup"))
-                    .permission("dirtbackup.start")
-                    .executor(new Start(PluginConfiguration.quantity))
+                    .permission(permissionPrefix + ".start")
+                    .executor(new Start())
                     .build();
 
             CommandSpec base = CommandSpec.builder()
                     .description(Text.of("Base command for " + container.getName()))
-                    .permission("dirtbackup.base")
                     .child(list, "list")
                     .child(start, "start")
                     .build();
@@ -78,16 +82,23 @@ public class DirtBackups {
             Sponge.getCommandManager().register(instance, base, "backup");
             Sponge.getCommandManager().register(instance, list, "backups");
 
-            Utility.doBackup(PluginConfiguration.quantity);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
 
+    }
+
+    @Listener
+    public void onServerStarting(GameStartingServerEvent event) {
         Scheduler.initScheduler();
     }
 
     private void loadConfig() {
         this.cfgManager = new ConfigManager(loader);
+    }
+
+    public static Logger getLogger() {
+        return instance.logger;
     }
 
     public static DirtBackups getInstance() {

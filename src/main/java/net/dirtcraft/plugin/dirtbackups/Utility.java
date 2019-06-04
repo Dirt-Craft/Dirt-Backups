@@ -1,5 +1,6 @@
 package net.dirtcraft.plugin.dirtbackups;
 
+import net.dirtcraft.plugin.dirtbackups.Configuration.PluginConfiguration;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import org.spongepowered.api.Sponge;
@@ -17,17 +18,22 @@ import java.util.Comparator;
 
 public class Utility {
 
-    public static void doBackup(int numKeep) {
+    public static void doBackup() {
         try {
-            if (DirtBackups.isBackingUp) return;
+            if (DirtBackups.isBackingUp) {
+                DirtBackups.getLogger().error("Already backing up!");
+                return;
+            }
+            DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;
             File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
             ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy-HH:mm:ss")) + ".zip");
             backup.addFolder(world, new ZipParameters());
-            deleteBackups(numKeep);
-        } catch (Exception e) {
-            e.printStackTrace();
+            deleteBackups(PluginConfiguration.quantity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
+        DirtBackups.getLogger().warn("Backup Complete!");
         DirtBackups.isBackingUp = false;
     }
 
@@ -48,6 +54,7 @@ public class Utility {
             for (File file : files) {
                 counter++;
                 if (counter > numKeep) {
+                    DirtBackups.getLogger().warn("Warning! Deleting oldest backup...");
                     file.delete();
                 }
             }
