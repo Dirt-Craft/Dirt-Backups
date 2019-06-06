@@ -50,7 +50,7 @@ public class DirtBackups {
 
     public static boolean isBackingUp = false;
     
-    private String permissionPrefix = "dirtbackups";
+    private final String permissionPrefix = "dirtbackups";
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {

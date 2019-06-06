@@ -40,5 +40,5 @@
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.18" level="project" />
     <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.4.0" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="net.dirtcraft.plugin.Dirt-Backups.main" />
+  <component name="TestModuleProperties" production-module="Dirt-Backups.main" />
 </module>

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Dirt-Backups.iml" filepath="$PROJECT_DIR$/.idea/Dirt-Backups.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.iml" filepath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.main.iml" filepath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.test.iml" filepath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.test.iml" />
     </modules>

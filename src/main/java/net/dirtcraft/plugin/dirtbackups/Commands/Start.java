@@ -17,9 +17,9 @@ public class Start implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource source, CommandContext args) throws CommandException {
 
-        if (DirtBackups.isBackingUp) {
+        if (DirtBackups.isBackingUp)
             throw new CommandException(Utility.format("&cThe server is already backing up!"));
-        }
+
 
         try {
             if (Utility.listBackups().length >= PluginConfiguration.quantity) {

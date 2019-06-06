@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ConfigManager {
     private ConfigurationLoader<CommentedConfigurationNode> loader;
     private ConfigurationOptions options;
-    private PluginConfiguration cfg;
+    private PluginConfiguration config;
 
     public ConfigManager(ConfigurationLoader<CommentedConfigurationNode> loader) {
         this.loader = loader;
@@ -22,9 +22,9 @@ public class ConfigManager {
     private void update() {
         try {
             CommentedConfigurationNode node = loader.load(options);
-            PluginConfiguration cfg = node.getValue(TypeToken.of(PluginConfiguration.class), new PluginConfiguration());
+            PluginConfiguration config = node.getValue(TypeToken.of(PluginConfiguration.class), new PluginConfiguration());
             loader.save(node);
-            this.cfg = cfg;
+            this.config = config;
         } catch (IOException | ObjectMappingException exception) {
             exception.printStackTrace();
         }
