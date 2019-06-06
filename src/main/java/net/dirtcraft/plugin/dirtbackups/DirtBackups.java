@@ -21,6 +21,7 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 
 import java.io.File;
+import java.io.IOException;
 
 @Plugin(
         id = "dirt-backups",
@@ -81,7 +82,7 @@ public class DirtBackups {
             Sponge.getCommandManager().register(instance, base, "backup");
             Sponge.getCommandManager().register(instance, list, "backups");
 
-        } catch (Exception exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
 
