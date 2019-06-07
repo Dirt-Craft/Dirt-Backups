@@ -13,6 +13,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
@@ -39,7 +40,7 @@ public class DirtBackups {
     @Inject
     @DefaultConfig(sharedRoot = false)
     private ConfigurationLoader<CommentedConfigurationNode> loader;
-    private ConfigManager cfgManager;
+    private ConfigManager configManager;
 
     @Inject
     private Logger logger;
@@ -51,7 +52,7 @@ public class DirtBackups {
 
     public static boolean isBackingUp = false;
 
-    @Listener
+    @Listener (order = Order.LAST)
     public void onPreInit(GamePreInitializationEvent event) {
 
         instance = this;
@@ -92,7 +93,7 @@ public class DirtBackups {
     }
 
     private void loadConfig() {
-        this.cfgManager = new ConfigManager(loader);
+        this.configManager = new ConfigManager(loader);
     }
 
     public static Logger getLogger() {
