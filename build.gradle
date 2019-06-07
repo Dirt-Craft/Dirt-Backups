@@ -10,13 +10,19 @@ configurations {
 group = pluginGroup
 version = pluginVersion
 
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
     provided 'net.lingala.zip4j:zip4j:1.3.3'
+    implementation 'com.github.Dirt-Craft:Sponge-Discord-Lib:f5b4316b3b'
 }
 
 jar {
-    from configurations.provided.asFileTree.files.collect {zipTree(it) }
+    from configurations.provided.asFileTree.files.collect {zipTree(it)}
 }
 
 sponge.plugin.id = pluginId

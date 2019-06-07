@@ -1,6 +1,7 @@
 package net.dirtcraft.plugin.dirtbackups;
 
 import com.google.inject.Inject;
+import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import net.dirtcraft.plugin.dirtbackups.Commands.Start;
 import net.dirtcraft.plugin.dirtbackups.Commands.List;
 import net.dirtcraft.plugin.dirtbackups.Configuration.ConfigManager;
@@ -49,13 +50,13 @@ public class DirtBackups {
     private static DirtBackups instance;
 
     public static boolean isBackingUp = false;
-    
-    private final String permissionPrefix = "dirtbackups";
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
+
         instance = this;
         //loadConfig();
+        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1")) return;
 
         try {
             File backupDir = new File(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups");
@@ -63,13 +64,13 @@ public class DirtBackups {
 
             CommandSpec list = CommandSpec.builder()
                     .description(Text.of("Lists all backups in directory"))
-                    .permission(permissionPrefix + ".list")
+                    .permission(container.getId().replace("-", "") + ".list")
                     .executor(new List())
                     .build();
 
             CommandSpec start = CommandSpec.builder()
                     .description(Text.of("Forces the server to save a backup"))
-                    .permission(permissionPrefix + ".start")
+                    .permission(container.getId().replace("-", "") + ".start")
                     .executor(new Start())
                     .build();
 

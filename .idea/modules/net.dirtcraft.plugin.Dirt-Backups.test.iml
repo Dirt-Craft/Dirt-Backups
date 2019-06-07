@@ -16,7 +16,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="net.dirtcraft.plugin.Dirt-Backups.main" />
     <orderEntry type="library" name="Gradle: org.spongepowered:spongeapi:7.1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Dirt-Craft:Sponge-Discord-Lib:f5b4316b3b" level="project" />
     <orderEntry type="library" name="Gradle: net.lingala.zip4j:zip4j:1.3.3" level="project" />
+    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.8.3_463" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: com.google.inject:guice:4.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.spongepowered:plugin-meta:0.4.1" level="project" />
@@ -28,7 +30,7 @@
     <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.0.15" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.5" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ben-manes.caffeine:guava:2.5.4" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ben-manes.caffeine:caffeine:2.5.4" level="project" />
     <orderEntry type="library" name="Gradle: com.flowpowered:flow-math:1.0.3" level="project" />
@@ -38,7 +40,14 @@
     <orderEntry type="library" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.typesafe:config:1.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.18" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:16.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.neovisionaries:nv-websocket-client:2.5" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.13.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.json:json:20160810" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.trove4j:trove4j:3.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.17.2" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Dirt-Backups.main" />
 </module>
