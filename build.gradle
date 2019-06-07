@@ -18,7 +18,7 @@ repositories {
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
     provided 'net.lingala.zip4j:zip4j:1.3.3'
-    implementation 'com.github.Dirt-Craft:Sponge-Discord-Lib:f5b4316b3b'
+    implementation 'com.github.Dirt-Craft:Sponge-Discord-Lib:5ac2ef6725'
 }
 
 jar {
