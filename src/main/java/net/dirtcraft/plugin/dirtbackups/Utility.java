@@ -19,10 +19,16 @@ import java.util.Comparator;
 
 public class Utility {
 
+    private static boolean serverStart = true;
+
     public static void doBackup() {
         try {
             if (DirtBackups.isBackingUp) {
                 DirtBackups.getLogger().error("Already backing up!");
+                return;
+            }
+            if (serverStart) {
+                serverStart = false;
                 return;
             }
             DirtBackups.getLogger().warn("Starting backup...");
