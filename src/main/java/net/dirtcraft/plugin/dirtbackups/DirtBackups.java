@@ -90,7 +90,7 @@ public class DirtBackups {
 
         Sponge.getEventManager().registerListeners(instance, new EventHandler());
         if (SpongeDiscordLib.getServerName().toLowerCase().contains("pixel"))
-            Sponge.getEventManager().registerListeners(instance, new EventHandler());
+            Sponge.getEventManager().registerListeners(instance, new PixelmonListener());
     }
 
     private void loadConfig() {
