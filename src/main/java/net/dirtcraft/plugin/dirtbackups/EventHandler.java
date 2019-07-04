@@ -7,6 +7,8 @@ import org.spongepowered.api.event.world.SaveWorldEvent;
 
 public class EventHandler {
 
+    private boolean isSaving = false;
+
     public EventHandler() {
         DirtBackups.getLogger().info("Event Listeners registered for " + DirtBackups.getContainer().getName());
     }
@@ -27,17 +29,24 @@ public class EventHandler {
             Sponge.getServer().getBroadcastChannel().send(
                     Utility.format(
                             "&7&oThe world is saving! Expect a short lag spike..."));
+            isSaving = true;
         }
     }
 
     @Listener
     public void onPostWorldSave(SaveWorldEvent.Post event) {
-        if (!DirtBackups.isBackingUp) return;
+        if (DirtBackups.isBackingUp) {
+            event.setCancelled(true);
+            return;
+        }
+        if (!isSaving) return;
+
         if (Sponge.getServer().getDefaultWorld().isPresent() &&
                 event.getTargetWorld().getUniqueId().equals(
                         Sponge.getServer().getDefaultWorld().get().getUniqueId()))
         Sponge.getServer().getBroadcastChannel().send(
                 Utility.format("&7&oWorld save complete!"));
+        isSaving = false;
     }
 
 }
