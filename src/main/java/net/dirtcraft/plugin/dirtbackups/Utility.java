@@ -5,7 +5,6 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
@@ -19,16 +18,10 @@ import java.util.Comparator;
 
 public class Utility {
 
-    private static boolean serverStart = true;
-
     public static void doBackup() {
         try {
             if (DirtBackups.isBackingUp) {
                 DirtBackups.getLogger().error("Already backing up!");
-                return;
-            }
-            if (serverStart) {
-                serverStart = false;
                 return;
             }
             DirtBackups.getLogger().warn("Starting backup...");

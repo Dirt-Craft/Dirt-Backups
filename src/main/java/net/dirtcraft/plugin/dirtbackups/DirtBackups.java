@@ -57,7 +57,7 @@ public class DirtBackups {
 
         instance = this;
         //loadConfig();
-        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1")) return;
+        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1") || SpongeDiscordLib.getServerName().toLowerCase().contains("sky factory 4")) return;
 
         try {
             File backupDir = new File(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups");
