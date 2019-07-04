@@ -2,11 +2,8 @@ package net.dirtcraft.plugin.dirtbackups;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.filter.IsCancelled;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.world.SaveWorldEvent;
-import org.spongepowered.api.text.serializer.TextSerializers;
-import org.spongepowered.api.util.Tristate;
 
 public class EventHandler {
 
@@ -27,7 +24,7 @@ public class EventHandler {
         } else {
             Sponge.getServer().getBroadcastChannel().send(
                     Utility.format(
-                            "&7&oThe world is saving! Expert a short lag spike..."));
+                            "&7&oThe world is saving! Expect a short lag spike..."));
         }
     }
 
