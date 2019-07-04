@@ -21,7 +21,9 @@ public class EventHandler {
         if (DirtBackups.isBackingUp) {
             event.setCancelled(true);
             DirtBackups.getLogger().warn("Server is backing up! Level saving is disabled.");
-        } else {
+        } else if (Sponge.getServer().getDefaultWorld().isPresent() &&
+                event.getTargetWorld().getUniqueId().equals(
+                        Sponge.getServer().getDefaultWorld().get().getUniqueId())) {
             Sponge.getServer().getBroadcastChannel().send(
                     Utility.format(
                             "&7&oThe world is saving! Expect a short lag spike..."));
@@ -30,6 +32,9 @@ public class EventHandler {
 
     @Listener
     public void onPostWorldSave(SaveWorldEvent.Post event) {
+        if (Sponge.getServer().getDefaultWorld().isPresent() &&
+                event.getTargetWorld().getUniqueId().equals(
+                        Sponge.getServer().getDefaultWorld().get().getUniqueId()))
         Sponge.getServer().getBroadcastChannel().send(
                 Utility.format("&7&oWorld save complete!"));
     }
