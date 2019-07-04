@@ -32,6 +32,7 @@ public class EventHandler {
 
     @Listener
     public void onPostWorldSave(SaveWorldEvent.Post event) {
+        if (!DirtBackups.isBackingUp) return;
         if (Sponge.getServer().getDefaultWorld().isPresent() &&
                 event.getTargetWorld().getUniqueId().equals(
                         Sponge.getServer().getDefaultWorld().get().getUniqueId()))
