@@ -3,6 +3,9 @@ package net.dirtcraft.plugin.dirtbackups;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.world.SaveWorldEvent;
+import org.spongepowered.api.world.storage.WorldProperties;
+
+import java.util.Optional;
 
 public class PixelmonListener {
 
@@ -31,9 +34,11 @@ public class PixelmonListener {
         }
         if (!isSaving) return;
 
-        if (Sponge.getServer().getDefaultWorld().isPresent() &&
+        Optional<WorldProperties> worldPropertiesOptional = Sponge.getServer().getDefaultWorld();
+
+        if (worldPropertiesOptional.isPresent() &&
                 event.getTargetWorld().getUniqueId().equals(
-                        Sponge.getServer().getDefaultWorld().get().getUniqueId()))
+                        worldPropertiesOptional.get().getUniqueId()))
             Sponge.getServer().getBroadcastChannel().send(
                     Utility.format("&7&oWorld save complete!"));
         isSaving = false;

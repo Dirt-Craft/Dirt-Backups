@@ -8,6 +8,7 @@ import net.dirtcraft.plugin.dirtbackups.Configuration.ConfigManager;
 import net.dirtcraft.plugin.dirtbackups.Configuration.PluginConfiguration;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -52,41 +53,40 @@ public class DirtBackups {
 
     public static boolean isBackingUp = false;
 
-    @Listener (order = Order.LAST)
+    @Listener (order = Order.POST)
     public void onPreInit(GamePreInitializationEvent event) {
 
         instance = this;
         //loadConfig();
-        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1") || SpongeDiscordLib.getServerName().toLowerCase().contains("sky factory 4")) return;
+        Utility.deleteOtherBackupMods();
+        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1")) return;
 
-        try {
-            File backupDir = new File(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups");
-            if(!backupDir.exists()) backupDir.mkdir();
+        File backupDir = new File(Sponge.getGame().getGameDirectory().toFile(), "backups");
+        Task.builder()
+                .async()
+                .execute(backupDir::mkdir)
+                .submit(instance);
 
-            CommandSpec list = CommandSpec.builder()
-                    .description(Text.of("Lists all backups in directory"))
-                    .permission(container.getId().replace("-", "") + ".list")
-                    .executor(new List())
-                    .build();
+        CommandSpec list = CommandSpec.builder()
+                .description(Text.of("Lists all backups in directory"))
+                .permission(container.getId().replace("-", "") + ".list")
+                .executor(new List())
+                .build();
 
-            CommandSpec start = CommandSpec.builder()
-                    .description(Text.of("Forces the server to save a backup"))
-                    .permission(container.getId().replace("-", "") + ".start")
-                    .executor(new Start())
-                    .build();
+        CommandSpec start = CommandSpec.builder()
+                .description(Text.of("Forces the server to save a backup"))
+                .permission(container.getId().replace("-", "") + ".start")
+                .executor(new Start())
+                .build();
 
-            CommandSpec base = CommandSpec.builder()
-                    .description(Text.of("Base command for " + container.getName()))
-                    .child(list, "list")
-                    .child(start, "start")
-                    .build();
+        CommandSpec base = CommandSpec.builder()
+                .description(Text.of("Base command for " + container.getName()))
+                .child(list, "list")
+                .child(start, "start")
+                .build();
 
-            Sponge.getCommandManager().register(instance, base, "backup");
-            Sponge.getCommandManager().register(instance, list, "backups");
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        Sponge.getCommandManager().register(instance, base, "backup");
+        Sponge.getCommandManager().register(instance, list, "backups");
 
         Sponge.getEventManager().registerListeners(instance, new EventHandler());
         if (SpongeDiscordLib.getServerName().toLowerCase().contains("pixel"))
