@@ -22,7 +22,7 @@ public class Start implements CommandExecutor {
 
 
         try {
-            if (Utility.listBackups().length >= PluginConfiguration.quantity) {
+            if (Utility.listBackups().size() >= PluginConfiguration.quantity) {
                 source.sendMessage(Utility.format("&cWarning! &7Deleting oldest backup..."));
             }
         } catch (IOException exception) {
