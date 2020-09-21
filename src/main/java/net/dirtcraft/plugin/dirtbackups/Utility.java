@@ -59,11 +59,12 @@ public class Utility {
             Optional<File> optionalLatestBackup = getLatestBackup();
             if (optionalLatestBackup.isPresent()) {
                 File latestBackup = optionalLatestBackup.get();
+                
+                Date now = new Date();
+                Date backupLastModified = new Date(latestBackup.lastModified());
+                long difference = now.getTime() - backupLastModified.getTime();
 
-                LocalTime intervalTimestamp = LocalTime.now().plus(PluginConfiguration.interval, ChronoUnit.HOURS);
-                LocalTime backupTimestamp = Instant.ofEpochSecond(latestBackup.lastModified()).atZone(ZoneId.systemDefault()).toLocalTime();
-
-                if (backupTimestamp.isAfter(intervalTimestamp)) return;
+                if (difference < (PluginConfiguration.interval * 60000)) return;
             }
             DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;

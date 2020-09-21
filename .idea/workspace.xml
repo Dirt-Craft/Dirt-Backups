@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f1af10b-1b76-4e93-8a99-f5a039b02774" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/net.dirtcraft.plugin.Dirt-Backups.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/dirtcraft/plugin/dirtbackups/Commands/List.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/dirtcraft/plugin/dirtbackups/Commands/List.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/dirtcraft/plugin/dirtbackups/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/dirtcraft/plugin/dirtbackups/Utility.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="31019" />
+    <option name="totalTimeSeconds" value="32214" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
