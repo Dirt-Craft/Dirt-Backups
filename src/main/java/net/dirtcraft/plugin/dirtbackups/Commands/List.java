@@ -37,10 +37,10 @@ public class List implements CommandExecutor {
                         try {
                             ArrayList<Text> contents = new ArrayList<>();
                             for (File file : Utility.listBackups()) {
-                                DateTimeFormatter format = DateTimeFormatter.ofPattern(Utility.getFormat());
+
                                 LocalDateTime time;
                                 try {
-                                    time = LocalDateTime.from(format.parse(file.getName().replace(".zip", "")));
+                                    time = LocalDateTime.from(Utility.format.parse(file.getName().replace(".zip", "")));
                                 } catch (DateTimeParseException exception) {
                                     Task.builder()
                                             .async()

@@ -27,6 +27,8 @@ import java.util.*;
 
 public class Utility {
 
+    public static DateTimeFormatter format = DateTimeFormatter.ofPattern(Utility.getFormat());
+
     public static void deleteOtherBackupMods() {
         Path gameDirectory = Sponge.getGame().getGameDirectory();
         File modsDir = new File(gameDirectory.toFile(), "mods");
@@ -61,13 +63,13 @@ public class Utility {
                 LocalTime intervalTimestamp = LocalTime.now().plus(PluginConfiguration.interval, ChronoUnit.HOURS);
                 LocalTime backupTimestamp = Instant.ofEpochSecond(latestBackup.lastModified()).atZone(ZoneId.systemDefault()).toLocalTime();
 
-                if (!backupTimestamp.isAfter(intervalTimestamp)) return;
+                if (backupTimestamp.isAfter(intervalTimestamp)) return;
             }
             DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;
             File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
 
-            ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(DateTimeFormatter.ofPattern(getFormat())) + ".zip");
+            ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(Utility.format) + ".zip");
             backup.addFolder(world, new ZipParameters());
             deleteBackups(PluginConfiguration.quantity);
         } catch (IOException | ZipException exception) {
@@ -80,8 +82,10 @@ public class Utility {
     private static Optional<File> getLatestBackup() throws IOException {
         List<File> backups = listBackups();
         if (backups.size() == 0) return Optional.empty();
-        backups.sort(Comparator.comparingLong(File::lastModified).reversed());
-        return Optional.of(backups.get(0));
+        List<LocalDateTime> times = new ArrayList<>();
+        for (File file : backups) times.add(LocalDateTime.from(format.parse(file.getName().replace(".zip", ""))));
+        File latestBackup = backups.get(times.indexOf(Collections.max(times)));
+        return Optional.of(latestBackup);
     }
 
     public static List<File> listBackups() throws IOException {
@@ -89,11 +93,11 @@ public class Utility {
         File[] files = backupDir.listFiles();
         if (files == null) return new ArrayList<>();
         for (File file : files) {
-            DateTimeFormatter format = DateTimeFormatter.ofPattern(Utility.getFormat());
+            DateTimeFormatter format = Utility.format;
             try {
                 LocalDateTime.from(format.parse(file.getName().replace(".zip", "")));
             } catch (DateTimeParseException exception) {
-                file.delete();
+                deleteRecursively(file);
             }
         }
         Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
@@ -108,9 +112,18 @@ public class Utility {
             counter++;
             if (counter > numKeep) {
                 DirtBackups.getLogger().warn("Warning! Deleting oldest backup...");
-                if (file.delete()) DirtBackups.getLogger().warn("Oldest backup successfully deleted.");
+                deleteRecursively(file);
             }
         }
+    }
+
+    private static void deleteRecursively(File file) {
+        if (file.delete()) return;
+        if (!file.isDirectory()) return;
+        File[] files = file.listFiles();
+        if (files == null) return;
+        for (File file1 : files)
+            if (!file1.delete() && file1.isDirectory()) deleteRecursively(file1);
     }
 
     public static String readableFileSize(long size) {

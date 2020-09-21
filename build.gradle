@@ -26,3 +26,4 @@ jar {
 }
 
 sponge.plugin.id = pluginId
+compileJava.options.encoding = 'UTF-8'
