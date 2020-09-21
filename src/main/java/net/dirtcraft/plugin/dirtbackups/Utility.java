@@ -13,14 +13,17 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
+import java.util.*;
 
 public class Utility {
 
@@ -51,6 +54,15 @@ public class Utility {
             return;
         }
         try {
+            Optional<File> optionalLatestBackup = getLatestBackup();
+            if (optionalLatestBackup.isPresent()) {
+                File latestBackup = optionalLatestBackup.get();
+
+                LocalTime intervalTimestamp = LocalTime.now().plus(PluginConfiguration.interval, ChronoUnit.HOURS);
+                LocalTime backupTimestamp = Instant.ofEpochSecond(latestBackup.lastModified()).atZone(ZoneId.systemDefault()).toLocalTime();
+
+                if (!backupTimestamp.isAfter(intervalTimestamp)) return;
+            }
             DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;
             File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
@@ -63,6 +75,13 @@ public class Utility {
         }
         DirtBackups.getLogger().warn("Backup Complete!");
         DirtBackups.isBackingUp = false;
+    }
+
+    private static Optional<File> getLatestBackup() throws IOException {
+        List<File> backups = listBackups();
+        if (backups.size() == 0) return Optional.empty();
+        backups.sort(Comparator.comparingLong(File::lastModified).reversed());
+        return Optional.of(backups.get(0));
     }
 
     public static List<File> listBackups() throws IOException {

@@ -10,8 +10,8 @@ public class Scheduler {
     public static void initScheduler() {
         Task.builder()
                 .async()
-                .delay(PluginConfiguration.interval * 60, TimeUnit.MINUTES)
-                .interval(PluginConfiguration.interval * 60, TimeUnit.MINUTES)
+                .delay(1, TimeUnit.MINUTES)
+                .interval(1, TimeUnit.MINUTES)
                 .execute(Utility::doBackup)
                 .submit(DirtBackups.getInstance());
     }
