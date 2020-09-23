@@ -1,5 +1,6 @@
 package net.dirtcraft.plugin.dirtbackups;
 
+import net.dirtcraft.discord.spongediscordlib.SpongeDiscordLib;
 import net.dirtcraft.plugin.dirtbackups.Configuration.PluginConfiguration;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -24,6 +25,7 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Utility {
 
@@ -64,7 +66,7 @@ public class Utility {
                 Date backupLastModified = new Date(latestBackup.lastModified());
                 long difference = now.getTime() - backupLastModified.getTime();
 
-                if (difference < (PluginConfiguration.interval * 60000)) return;
+                if (difference < (PluginConfiguration.interval * 3600000)) return;
             }
             DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;

@@ -59,7 +59,7 @@ public class DirtBackups {
         instance = this;
         //loadConfig();
         Utility.deleteOtherBackupMods();
-        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1")) return;
+        if (SpongeDiscordLib.getServerName().equalsIgnoreCase("stoneblock 1") || SpongeDiscordLib.getServerName().equalsIgnoreCase("mc eternal")) return;
 
         File backupDir = new File(Sponge.getGame().getGameDirectory().toFile(), "backups");
         Task.builder()

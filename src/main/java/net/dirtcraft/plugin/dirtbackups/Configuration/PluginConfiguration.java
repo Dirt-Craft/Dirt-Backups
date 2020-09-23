@@ -10,6 +10,6 @@ public class PluginConfiguration {
     public static int interval = 12;
 
     @Setting(value = "Quantity", comment = "The number of backups to keep before deleting old ones.")
-    public static int quantity = 4;
+    public static int quantity = 2;
 
 }
