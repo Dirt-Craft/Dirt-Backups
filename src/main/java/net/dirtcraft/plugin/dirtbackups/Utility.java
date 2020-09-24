@@ -70,11 +70,15 @@ public class Utility {
             }
             DirtBackups.getLogger().warn("Starting backup...");
             DirtBackups.isBackingUp = true;
+
+            // Delete previous backups if over quantity
+            deleteBackups(PluginConfiguration.quantity);
+
+            // Create new backup
             File world = Sponge.getGame().getSavesDirectory().resolve(Sponge.getServer().getDefaultWorldName()).toFile();
 
             ZipFile backup = new ZipFile(Sponge.getGame().getGameDirectory().toFile().getCanonicalPath() + File.separator + "backups" + File.separator + LocalDateTime.now().format(Utility.format) + ".zip");
             backup.addFolder(world, new ZipParameters());
-            deleteBackups(PluginConfiguration.quantity);
         } catch (IOException | ZipException exception) {
             exception.printStackTrace();
         }
@@ -109,7 +113,7 @@ public class Utility {
 
     private static void deleteBackups(int numKeep) throws IOException {
         List<File> files = listBackups();
-        int counter = 0;
+        int counter = 1;
         files.sort(Comparator.comparingLong(File::lastModified).reversed());
         for (File file : files) {
             counter++;
